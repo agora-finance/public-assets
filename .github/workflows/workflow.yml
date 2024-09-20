@@ -1,5 +1,8 @@
 name: directory-listing
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   pages-directory-listing:
@@ -7,19 +10,17 @@ jobs:
     name: Directory Listings Index
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          ref: master    #checkout different branch
+        uses: actions/checkout@v4
 
       - name: Generate Directory Listings
-        uses: jayanta525/github-pages-directory-listing@v4.0.0
+        uses: jayanta525/github-pages-directory-listing@624ac8c4e56893256d3772f61a88e3b14d54314e #v4.0.0
         with:
-          FOLDER: public-assets      #directory to generate index
+          FOLDER: src      # directory to generate index
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa #v3.0.1
         with:
-          path: 'data'      # upload generated folder
+          path: src      # upload generated folder
   
   deploy:
     needs: pages-directory-listing
@@ -37,4 +38,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e #v4.0.5
